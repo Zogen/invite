@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <title>Champions League Invitation</title>
+
+  <style>
+    body {
+	  margin: 0;
+	  height: 100vh;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  font-family: Arial, sans-serif;
+	  color: white;
+	  background:
+		linear-gradient(
+		  rgba(0,0,0,0.65),
+		  rgba(0,0,0,0.65)
+		),
+		url("https://tottenhamhotspurs.shorthandstories.com/revisit-some-of-our-uefa-champions-league-highlights/assets/50aOWbe2FF/ucl-tifoheader-16x9-2560x1440.jpg");
+	  background-size: cover;
+	  background-position: center;
+	  overflow: hidden;
+	}
+
+
+    .card {
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 18px;
+      padding: 40px 50px;
+      text-align: center;
+      box-shadow: 0 0 35px rgba(0,0,0,0.8);
+      animation: fadeIn 1.5s ease forwards;
+      max-width: 440px;
+      backdrop-filter: blur(4px);
+    }
+
+    .ball {
+      font-size: 50px;
+      margin-bottom: 15px;
+      animation: bounce 1.2s infinite;
+    }
+
+    h1 {
+      margin-bottom: 15px;
+      letter-spacing: 1px;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    .time {
+      margin-top: 20px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #ffd700;
+    }
+
+    .countdown {
+      margin-top: 10px;
+      font-size: 20px;
+      color: #00eaff;
+      letter-spacing: 1px;
+    }
+
+    .spurs {
+      margin-top: 20px;
+      font-size: 16px;
+      opacity: 0.9;
+      letter-spacing: 1px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <div class="ball">⚽</div>
+
+    <h1>Champions League Night</h1>
+
+    <p>
+      Σε προσκαλώ στην οικία μου<br>
+      για να δούμε <strong>Champions League</strong><br>
+      και να λιώσουμε μπάλες 🍻
+    </p>
+
+    <div class="time">Απόψε στις 22:00</div>
+    <div class="countdown" id="countdown">Loading...</div>
+
+    <div class="spurs">
+      COYS 🤍 Tottenham vibes
+    </div>
+  </div>
+
+<script>
+  function updateCountdown() {
+    const now = new Date();
+    const target = new Date();
+    target.setHours(22, 0, 0, 0);
+
+    if (now > target) {
+      document.getElementById("countdown").innerText = "Σέντρα έγινε! ⚽";
+      return;
+    }
+
+    const diff = target - now;
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("countdown").innerText =
+      `${hours}ω ${minutes}λ ${seconds}δ`;
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
