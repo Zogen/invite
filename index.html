@@ -36,11 +36,11 @@
       backdrop-filter: blur(4px);
     }
 
-    .ball {
-      font-size: 50px;
-      margin-bottom: 15px;
-      animation: bounce 1.2s infinite;
-    }
+	.ball {
+	  font-size: 50px;
+	  margin-bottom: 15px;
+	  animation: bounceRotate 1.2s infinite linear;
+	}
 
     h1 {
       margin-bottom: 15px;
@@ -82,6 +82,19 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-15px); }
     }
+	
+	@keyframes bounceRotate {
+	  0% {
+		transform: translateY(0) rotate(0deg);
+	  }
+	  50% {
+		transform: translateY(-15px) rotate(180deg);
+	  }
+	  100% {
+		transform: translateY(0) rotate(360deg);
+	  }
+	}
+
   </style>
 </head>
 
