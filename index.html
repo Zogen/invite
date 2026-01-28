@@ -127,26 +127,34 @@
 
 <script>
   function updateCountdown() {
-    const now = new Date();
-    const target = new Date();
-    target.setHours(22, 0, 0, 0);
+  const now = new Date();
+  const diff = matchTime - now;
 
-    if (now > target) {
-      document.getElementById("countdown").innerText = "Σέντρα έγινε! ⚽";
-      return;
-    }
+  const countdownEl = document.getElementById("countdown");
 
-    const diff = target - now;
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-
-    document.getElementById("countdown").innerText =
-      `${hours}ω ${minutes}λ ${seconds}δ`;
+  // Μετά το ματς
+  if (diff <= - (2 * 60 * 60 * 1000)) { // +2 ώρες buffer
+    countdownEl.innerText = "Τέλος αγώνα 🏁";
+    return;
   }
 
-  updateCountdown();
+  // Κατά τη διάρκεια
+  if (diff <= 0) {
+    countdownEl.innerText = "LIVE ⚽ COYS!";
+    return;
+  }
+
+  // Πριν τον αγώνα
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  countdownEl.innerText = `${hours}ω ${minutes}λ ${seconds}δ`;
+}
+
   setInterval(updateCountdown, 1000);
+  updateCountdown();
+
 </script>
 
 </body>
@@ -156,6 +164,7 @@
 Unofficial fan-made page.
 No affiliation with Tottenham Hotspur FC.
 -->
+
 
 
 
