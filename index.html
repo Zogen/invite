@@ -3,29 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>Tottenham Matchday Hub ⚽</title>
-	
+
   <link rel="icon" type="image/png" href="favicon.png">
 
   <style>
     body {
-	  margin: 0;
-	  height: 100vh;
-	  display: flex;
-	  justify-content: center;
-	  align-items: center;
-	  font-family: Arial, sans-serif;
-	  color: white;
-	  background:
-		linear-gradient(
-		  rgba(0,0,0,0.65),
-		  rgba(0,0,0,0.65)
-		),
-		url("https://tottenhamhotspurs.shorthandstories.com/revisit-some-of-our-uefa-champions-league-highlights/assets/50aOWbe2FF/ucl-tifoheader-16x9-2560x1440.jpg");
-	  background-size: cover;
-	  background-position: center;
-	  overflow: hidden;
-	}
-
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      color: white;
+      background:
+        linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+        url("https://upload.wikimedia.org/wikipedia/commons/6/6e/Football_stadium_at_night.jpg");
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+    }
 
     .card {
       background: rgba(0, 0, 0, 0.7);
@@ -38,11 +34,11 @@
       backdrop-filter: blur(4px);
     }
 
-	.ball {
-	  font-size: 50px;
-	  margin-bottom: 15px;
-	  animation: bounceRotate 1.2s infinite linear;
-	}
+    .ball {
+      font-size: 50px;
+      margin-bottom: 15px;
+      animation: bounceRotate 1.2s infinite linear;
+    }
 
     h1 {
       margin-bottom: 15px;
@@ -75,28 +71,25 @@
       letter-spacing: 1px;
     }
 
+    footer {
+      font-size: 12px;
+      opacity: 0.6;
+      text-align: center;
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
+    @keyframes bounceRotate {
+      0%   { transform: translateY(0) rotate(0deg); }
+      50%  { transform: translateY(-15px) rotate(180deg); }
+      100% { transform: translateY(0) rotate(360deg); }
     }
-	
-	@keyframes bounceRotate {
-	  0% {
-		transform: translateY(0) rotate(0deg);
-	  }
-	  50% {
-		transform: translateY(-15px) rotate(180deg);
-	  }
-	  100% {
-		transform: translateY(0) rotate(360deg);
-	  }
-	}
-
   </style>
 </head>
 
@@ -105,36 +98,35 @@
   <div class="card">
     <div class="ball">⚽</div>
 
-    <h1>Champions League Night</h1>
+    <h1>Premier League Night</h1>
 
     <p>
-      Σε προσκαλώ στην οικία μου<br>
-      για να δούμε <strong>Champions League</strong><br>
-      και να λιώσουμε μπάλες 🍻
+      Tottenham vs Manchester City<br>
+      Premier League showdown<br>
+      και λιώσιμο μπάλας 🍻
     </p>
 
-    <div class="time">Απόψε στις 22:00</div>
+    <div class="time">Loading...</div>
     <div class="countdown" id="countdown">Loading...</div>
 
     <div class="spurs">
-      COYS 🤍 Tottenham vibes
+      COYS 🤍 Spurs matchday vibes
     </div>
   </div>
 
-  <footer style="font-size:12px; opacity:0.6; text-align:center; position:fixed; bottom:10px; width:100%;">
+  <footer>
     Unofficial fan page – no affiliation with Tottenham Hotspur FC
   </footer>
 
 <script>
-  // Premier League
   // Tottenham vs Manchester City
-  // Kick-off: 18:30 local time (Greece)
+  // Premier League – Kick-off 18:30 (local GR)
 
   const matchTime = new Date();
   matchTime.setDate(matchTime.getDate() + 1);
   matchTime.setHours(18, 30, 0, 0);
 
-  const MATCH_DURATION = 2 * 60 * 60 * 1000; // 2 ώρες
+  const MATCH_DURATION = 2 * 60 * 60 * 1000;
 
   function updateCountdown() {
     const now = new Date();
@@ -143,32 +135,25 @@
     const countdownEl = document.getElementById("countdown");
     const timeEl = document.querySelector(".time");
 
-    // Μετά το ματς
     if (diff <= -MATCH_DURATION) {
       countdownEl.innerText = "Τέλος αγώνα 🏁";
       timeEl.innerText = "Περιμένουμε τον επόμενο αγώνα";
       return;
     }
 
-    // Κατά τη διάρκεια
     if (diff <= 0) {
       countdownEl.innerText = "LIVE ⚽ Premier League";
       timeEl.innerText = "Tottenham vs Manchester City";
       return;
     }
 
-    // Πριν τον αγώνα
     const hours = Math.floor(diff / (1000 * 60 * 60));
     const minutes = Math.floor((diff / (1000 * 60)) % 60);
     const seconds = Math.floor((diff / 1000) % 60);
 
-    countdownEl.innerText =
-      `Σέντρα σε ${hours}ω ${minutes}λ ${seconds}δ`;
+    countdownEl.innerText = `Σέντρα σε ${hours}ω ${minutes}λ ${seconds}δ`;
 
-    // Dynamic label: σήμερα / αύριο
-    const isToday =
-      now.toDateString() === matchTime.toDateString();
-
+    const isToday = now.toDateString() === matchTime.toDateString();
     timeEl.innerText = isToday
       ? "Σήμερα στις 18:30"
       : "Αύριο στις 18:30";
@@ -178,16 +163,5 @@
   setInterval(updateCountdown, 1000);
 </script>
 
-
 </body>
 </html>
-
-<!--
-Unofficial fan-made page.
-No affiliation with Tottenham Hotspur FC.
--->
-
-
-
-
-
