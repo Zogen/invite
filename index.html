@@ -126,36 +126,58 @@
   </footer>
 
 <script>
+  // Premier League
+  // Tottenham vs Manchester City
+  // Kick-off: 18:30 local time (Greece)
+
+  const matchTime = new Date();
+  matchTime.setDate(matchTime.getDate() + 1);
+  matchTime.setHours(18, 30, 0, 0);
+
+  const MATCH_DURATION = 2 * 60 * 60 * 1000; // 2 ώρες
+
   function updateCountdown() {
-  const now = new Date();
-  const diff = matchTime - now;
+    const now = new Date();
+    const diff = matchTime - now;
 
-  const countdownEl = document.getElementById("countdown");
+    const countdownEl = document.getElementById("countdown");
+    const timeEl = document.querySelector(".time");
 
-  // Μετά το ματς
-  if (diff <= - (2 * 60 * 60 * 1000)) { // +2 ώρες buffer
-    countdownEl.innerText = "Τέλος αγώνα 🏁";
-    return;
+    // Μετά το ματς
+    if (diff <= -MATCH_DURATION) {
+      countdownEl.innerText = "Τέλος αγώνα 🏁";
+      timeEl.innerText = "Περιμένουμε τον επόμενο αγώνα";
+      return;
+    }
+
+    // Κατά τη διάρκεια
+    if (diff <= 0) {
+      countdownEl.innerText = "LIVE ⚽ Premier League";
+      timeEl.innerText = "Tottenham vs Manchester City";
+      return;
+    }
+
+    // Πριν τον αγώνα
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    countdownEl.innerText =
+      `Σέντρα σε ${hours}ω ${minutes}λ ${seconds}δ`;
+
+    // Dynamic label: σήμερα / αύριο
+    const isToday =
+      now.toDateString() === matchTime.toDateString();
+
+    timeEl.innerText = isToday
+      ? "Σήμερα στις 18:30"
+      : "Αύριο στις 18:30";
   }
 
-  // Κατά τη διάρκεια
-  if (diff <= 0) {
-    countdownEl.innerText = "LIVE ⚽ COYS!";
-    return;
-  }
-
-  // Πριν τον αγώνα
-  const hours = Math.floor(diff / (1000 * 60 * 60));
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
-
-  countdownEl.innerText = `${hours}ω ${minutes}λ ${seconds}δ`;
-}
-
-  setInterval(updateCountdown, 1000);
   updateCountdown();
-
+  setInterval(updateCountdown, 1000);
 </script>
+
 
 </body>
 </html>
@@ -164,6 +186,7 @@
 Unofficial fan-made page.
 No affiliation with Tottenham Hotspur FC.
 -->
+
 
 
 
